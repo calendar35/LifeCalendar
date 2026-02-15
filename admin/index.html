@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админка календаря</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b71c1c">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../supabase.js"></script>
+    <script defer src="admin.js"></script>
+</head>
+<body>
+    <noscript>
+        <div class="no-script-warning">
+            ⚠️ <strong>Внимание!</strong> Включите JavaScript.
+        </div>
+    </noscript>
+
+    <div class="container">
+        <div id="loginForm" class="login-container">
+            <div class="login-card">
+                <div class="header">
+                    <h1>👑 Вход в админку</h1>
+                    <p>Введите данные для доступа</p>
+                </div>
+                <form id="loginFormElement" onsubmit="return false;">
+                    <label class="admin-input-label">Email</label>
+                    <input class="admin-input" type="email" id="email" required>
+                    <label class="admin-input-label">Пароль</label>
+                    <input class="admin-input" type="password" id="password" required>
+                    <button type="submit" class="btn" id="loginBtn" style="width:100%; margin-top:10px;">Войти</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="adminContent" style="display:none;">
+            <div class="header">
+                <h1>👑 Админ-панель</h1>
+                <p>Управление контентом и этапами</p>
+            </div>
+
+            <div class="stages-control-panel">
+                <h3>⚙️ Настройка этапов</h3>
+                <p>Создавайте и редактируйте даты этапов пути</p>
+                <button class="btn btn-secondary" onclick="openStagesModal()">Управление этапами</button>
+            </div>
+
+            <div id="adminStageNavigation" class="stage-navigation"></div>
+            <div class="month-grid" id="adminMonthGrid"></div>
+            <div id="adminFinalStageEditor" style="display:none;" class="admin-inline-editor"></div>
+        </div>
+    </div>
+
+    <div class="admin-popup-overlay" id="adminDayPopupOverlay" style="display:none;">
+        <div id="adminDayPopup" class="admin-popup"></div>
+    </div>
+
+    <div id="stagesModal" class="admin-popup-overlay" style="display:none;">
+        <div class="admin-popup" style="height: auto; max-height: 90vh;">
+            <div class="popup-header">
+                <div class="popup-title">Список этапов</div>
+                <button class="admin-popup-close" onclick="closeStagesModal()">×</button>
+            </div>
+            <div class="popup-scroll-area">
+                <div id="stagesList" class="stages-list">Загрузка...</div>
+                
+                <div class="add-stage-form">
+                    <h4>Добавить новый этап</h4>
+                    <div style="display:flex; gap:10px; margin-bottom:10px;">
+                        <input type="text" id="newStageTitle" placeholder="Название" class="admin-input" style="flex:1;">
+                        <input type="text" id="newStageEmoji" placeholder="Эмодзи" class="admin-input" style="width:80px;">
+                    </div>
+                    <div style="display:flex; gap:10px;">
+                        <div style="flex:1;">
+                            <label class="admin-input-label">Начало</label>
+                            <input type="date" id="newStageStart" class="admin-input">
+                        </div>
+                        <div style="flex:1;">
+                            <label class="admin-input-label">Конец</label>
+                            <input type="date" id="newStageEnd" class="admin-input">
+                        </div>
+                    </div>
+                    <button class="btn" onclick="addNewStage()" style="width:100%; margin-top:10px;">➕ Создать этап</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(console.error);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Календарь задач 2026</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e53935">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <noscript>
+        <div class="no-script-warning">
+            ⚠️ <strong>Внимание!</strong> Для работы календаря необходимо включить JavaScript.
+        </div>
+    </noscript>
+
+    <div class="container">
+        <div class="header">
+            <h1>📅 Календарь задач 2026</h1>
+            <p>Ваш путь к лучшей версии себя</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Дней в году</h3><div class="value" id="totalDays">365</div>
+            </div>
+            <div class="stat-card">
+                <h3>Выполнено</h3><div class="value" id="completedDays">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Процент</h3><div class="value" id="percentDays">0%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Осталось</h3><div class="value" id="remainingDays">365</div>
+                <div class="progress-bar"><div class="progress-fill" id="mainProgressBar" style="width: 0%"></div></div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color incomplete"></div><span>Предстоит</span></div>
+            <div class="legend-item"><div class="legend-color completed"></div><span>Выполнено</span></div>
+        </div>
+
+        <div id="stageNavigation" class="stage-navigation"></div>
+        
+        <div class="month-grid" id="monthGrid"></div>
+        
+        <div id="finalStageView" style="display:none;"></div>
+
+        <div class="data-management">
+            <h3>💾 Резервное копирование</h3>
+            <p>Сохраните свой прогресс, чтобы не потерять его</p>
+            <div class="data-buttons">
+                <button class="data-btn btn-export" onclick="exportData()">⬇️ Скачать</button>
+                <label class="data-btn btn-import">
+                    📂 Загрузить
+                    <input type="file" id="importFile" accept=".json" onchange="importData(this)">
+                </label>
+            </div>
+            <div class="data-hint">Формат файла: .json</div>
+        </div>
+    </div>
+
+    <div class="user-popup-overlay" id="userDayPopupOverlay" style="display:none;">
+        <div class="user-popup" id="userDayPopup">
+            <button class="user-popup-close" onclick="closeUserPopup()">×</button>
+            <div class="popup-layout">
+                <div class="popup-header">
+                    <div class="popup-date-badge" id="popupDate">01.01.2026</div>
+                    <h2 class="popup-title" id="popupTitle">Загрузка...</h2>
+                    <div id="popupTgLinks" class="popup-tg-links"></div>
+                </div>
+                <div class="popup-scroll-area" id="popupBlocksContainer"></div>
+                <div class="popup-footer">
+                    <button class="btn-complete" id="markDayCompleteBtn">✅ Отметить выполненным</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
