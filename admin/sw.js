@@ -3,6 +3,7 @@ const ASSETS_TO_CACHE = [
     './index.html',
     './style.css',
     './admin.js',
+    './manifest.json',
     '../supabase.js',
     './icons/icon-192.png',
     './icons/icon-512.png'
@@ -46,3 +47,4 @@ self.addEventListener('fetch', (event) => {
     );
 
 });
+
