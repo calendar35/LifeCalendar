@@ -1,12 +1,12 @@
-const CACHE_NAME = 'admin-panel-v1.1';
+const CACHE_NAME = 'admin-panel-v1.2';
 const ASSETS_TO_CACHE = [
     './index.html',
     './style.css',
     './admin.js',
     './manifest.json',
     '../supabase.js',
-    './icons/icon-192.png',
-    './icons/icon-512.png'
+    './icons/icon-192.svg',
+    './icons/icon-512.svg'
 ];
 
 // 1. Установка: кэшируем статику (оболочку приложения)
@@ -47,4 +47,5 @@ self.addEventListener('fetch', (event) => {
     );
 
 });
+
 
