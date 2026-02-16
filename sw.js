@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calendar-user-v1';
+const CACHE_NAME = 'calendar-user-v1.1';
 const ASSETS = [
   './',
   './index.html',
@@ -43,4 +43,5 @@ self.addEventListener('fetch', (e) => {
       return response || fetch(e.request);
     })
   );
+
 });
