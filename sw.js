@@ -4,6 +4,7 @@ const ASSETS = [
   './index.html',
   './style.css',
   './script.js',
+  './manifest.json',
   './supabase.js',
   './icons/icon-192.png',
   './icons/icon-512.png'
@@ -45,3 +46,4 @@ self.addEventListener('fetch', (e) => {
   );
 
 });
+
