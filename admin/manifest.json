@@ -1,7 +1,8 @@
 {
     "name": "Admin Calendar 2026",
-    "short_name": "AdminCal",
-    "start_url": "./index.html",
+    "short_name": "AdminCalendar",
+    "start_url": "/LifeCalendar/admin/index.html",
+    "scope": "/LifeCalendar/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#b71c1c",
@@ -18,4 +19,5 @@
         "type": "image/png"
       }
     ]
+
 }
