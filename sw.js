@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calendar-user-v1.1';
+const CACHE_NAME = 'calendar-user-v1.2';
 const ASSETS = [
   './',
   './index.html',
@@ -6,8 +6,8 @@ const ASSETS = [
   './script.js',
   './manifest.json',
   './supabase.js',
-  './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icons/icon-192.svg',
+  './icons/icon-512.svg'
 ];
 
 // Установка: кэшируем статику
@@ -46,4 +46,5 @@ self.addEventListener('fetch', (e) => {
   );
 
 });
+
 
