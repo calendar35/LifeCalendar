@@ -1,4 +1,4 @@
-const CACHE_NAME = 'admin-panel-v1';
+const CACHE_NAME = 'admin-panel-v1.1';
 const ASSETS_TO_CACHE = [
     './index.html',
     './style.css',
@@ -44,4 +44,5 @@ self.addEventListener('fetch', (event) => {
                 return caches.match(event.request);
             })
     );
+
 });
