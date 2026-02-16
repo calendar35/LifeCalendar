@@ -1,7 +1,8 @@
 {
     "name": "Мой Путь 2026",
     "short_name": "Календарь",
-    "start_url": "./index.html",
+    "start_url": "/LifeCalendar/index.html",
+    "scope": "/LifeCalendar/",
     "display": "standalone",
     "background_color": "#fff5f7",
     "theme_color": "#e53935",
