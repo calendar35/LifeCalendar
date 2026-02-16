@@ -1,23 +1,25 @@
 {
     "name": "Admin Calendar 2026",
     "short_name": "AdminCalendar",
+    "id": "/LifeCalendar/admin/",
     "start_url": "/LifeCalendar/admin/index.html",
-    "scope": "/LifeCalendar/",
+    "scope": "/LifeCalendar/admin/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#b71c1c",
     "orientation": "portrait",
     "icons": [
       {
-        "src": "icons/icon-192.png",
+        "src": "icons/icon-192.svg",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "icons/icon-512.png",
+        "src": "icons/icon-512.svg",
         "sizes": "512x512",
         "type": "image/png"
       }
     ]
 
 }
+
