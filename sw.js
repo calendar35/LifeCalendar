@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calendar-user-v1.2';
+const CACHE_NAME = 'calendar-user-v1.3';
 const ASSETS = [
   './',
   './index.html',
@@ -7,7 +7,11 @@ const ASSETS = [
   './manifest.json',
   './supabase.js',
   './icons/icon-192.svg',
-  './icons/icon-512.svg'
+  './icons/icon-512.svg',
+  './icons/tg.svg',
+  './icons/fb.svg',
+  './icons/ig.svg',
+  './icons/vk.svg'
 ];
 
 // Установка: кэшируем статику
@@ -15,6 +19,7 @@ self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
+  self.skipWaiting(); // Сразу активировать новый воркер
 });
 
 // Активация: чистим старые кэши
@@ -26,6 +31,7 @@ self.addEventListener('activate', (e) => {
       );
     })
   );
+  self.clients.claim(); // Сразу взять контроль над страницами
 });
 
 // Перехват запросов

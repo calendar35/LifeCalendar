@@ -1,4 +1,4 @@
-const CACHE_NAME = 'admin-panel-v1.2';
+const CACHE_NAME = 'admin-panel-v1.3';
 const ASSETS_TO_CACHE = [
     './index.html',
     './style.css',
@@ -16,6 +16,7 @@ self.addEventListener('install', (event) => {
             return cache.addAll(ASSETS_TO_CACHE);
         })
     );
+    self.skipWaiting(); // Сразу активировать новый воркер
 });
 
 // 2. Активация: чистим старый кэш если обновили версию
@@ -29,6 +30,7 @@ self.addEventListener('activate', (event) => {
             }));
         })
     );
+    self.clients.claim(); // Сразу взять контроль над страницами
 });
 
 // 3. Запросы: Сначала пробуем сеть, если нет интернета — берем из кэша

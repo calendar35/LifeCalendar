@@ -56,6 +56,50 @@ body {
     font-weight: 500;
 }
 
+/* Соцсети в шапке */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.social-link img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.social-link:hover {
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.social-tg { background: #fff; }
+.social-tg:hover { background: #e3f2fd; }
+
+.social-fb { background: #fff; }
+.social-fb:hover { background: #e8f0fe; }
+
+.social-inst { background: #fff; }
+.social-inst:hover { background: #fce4ec; }
+
+.social-vk { background: #fff; }
+.social-vk:hover { background: #e3f2fd; }
+
 /* =========================================
    3. ГЛОБАЛЬНАЯ СТАТИСТИКА (КАРТОЧКИ)
    ========================================= */
@@ -628,6 +672,47 @@ body {
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 136, 204, 0.2);
+}
+
+/* =========================================
+   10a. ПОЛЕ ПРИМЕЧАНИЕ В ПОПАПЕ
+   ========================================= */
+.popup-note-block {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px dashed #eee;
+}
+
+.popup-note-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.popup-note-input {
+    width: 100%;
+    padding: 16px;
+    background: #fafafa;
+    border: 2px solid #eee;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 80px;
+    transition: all 0.2s;
+}
+
+.popup-note-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(229, 57, 53, 0.1);
 }
 
 /* =========================================

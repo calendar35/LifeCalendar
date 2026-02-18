@@ -13,6 +13,14 @@
     // Прогресс пользователя (из LocalStorage)
     let userProgress = {};
 
+    // Ссылки на соцсети (замените на свои)
+    const SOCIAL_LINKS = {
+        tg: 'https://t.me/your_channel',
+        fb: 'https://facebook.com/your_page',
+        inst: 'https://instagram.com/your_profile',
+        vk: 'https://vk.com/your_group'
+    };
+
     // --- ГЛАВНАЯ ФУНКЦИЯ ВРЕМЕНИ (MSK UTC+3) ---
     function getMskDate() {
         const now = new Date();
@@ -105,6 +113,16 @@
 
     function getUserDayData(dateStr) {
         return userProgress[dateStr] || { completed: false, inputs: {} };
+    }
+
+    function getDayNote(dateStr) {
+        return (userProgress[dateStr] && userProgress[dateStr].inputs) ? (userProgress[dateStr].inputs['note'] || '') : '';
+    }
+
+    function saveDayNote(dateStr, value) {
+        if (!userProgress[dateStr]) userProgress[dateStr] = { completed: false, inputs: {} };
+        userProgress[dateStr].inputs['note'] = value;
+        saveUserProgress();
     }
 
     function updateUserDayInput(dateStr, blockIndex, value) {
@@ -318,14 +336,14 @@
                         renderPopupContent(data, dateStr);
                     }
                 } else if (!cachedData) {
-                    renderEmptyState(container, completeBtn);
+                    renderEmptyState(container, completeBtn, dateStr);
                 }
             } else if (!cachedData) {
-                renderEmptyState(container, completeBtn);
+                renderEmptyState(container, completeBtn, dateStr);
             }
         } catch (e) {
             console.error('Ошибка загрузки дня:', e);
-            if (!cachedData) renderEmptyState(container, completeBtn);
+            if (!cachedData) renderEmptyState(container, completeBtn, dateStr);
         }
     }
 
@@ -363,6 +381,18 @@
                 tgContainer.appendChild(linksWrapper);
             }
         }
+
+        // Поле "Примечание" (всегда в конце, кешируется)
+        const noteWrap = document.createElement('div');
+        noteWrap.className = 'popup-note-block';
+        noteWrap.innerHTML = `
+            <label class="popup-note-label">Примечание</label>
+            <textarea class="popup-note-input" placeholder="Ваши заметки к этому дню..." rows="3"></textarea>
+        `;
+        const noteInput = noteWrap.querySelector('textarea');
+        noteInput.value = getDayNote(dateStr);
+        noteInput.addEventListener('input', () => saveDayNote(dateStr, noteInput.value));
+        container.appendChild(noteWrap);
 
         // Кнопка
         const userData = getUserDayData(dateStr);
@@ -452,13 +482,26 @@
         return wrapper;
     }
 
-    function renderEmptyState(container, btn) {
+    function renderEmptyState(container, btn, dateStr) {
         container.innerHTML = `
             <div style="text-align:center; padding: 40px 20px;">
                 <div style="font-size:40px; margin-bottom:15px;">💤</div>
                 <h3 style="color:#555; margin-bottom:10px;">Пока пусто</h3>
                 <p style="color:#999; font-size:14px;">Контент на этот день еще не загружен.</p>
             </div>`;
+        // Поле "Примечание" даже для пустого дня
+        const noteWrap = document.createElement('div');
+        noteWrap.className = 'popup-note-block';
+        noteWrap.innerHTML = `
+            <label class="popup-note-label">Примечание</label>
+            <textarea class="popup-note-input" placeholder="Ваши заметки к этому дню..." rows="3"></textarea>
+        `;
+        const noteInput = noteWrap.querySelector('textarea');
+        if (dateStr) {
+            noteInput.value = getDayNote(dateStr);
+            noteInput.addEventListener('input', () => saveDayNote(dateStr, noteInput.value));
+        }
+        container.appendChild(noteWrap);
         btn.textContent = '⛔ Недоступно';
         btn.disabled = true;
         btn.style.opacity = '0.5';
@@ -534,6 +577,14 @@
         document.getElementById('stageNextBtn').onclick = () => { if(!isLast) { currentStageIndex++; updateUI(); } };
     }
 
+    function initSocialLinks() {
+        const map = { 'social-tg': 'tg', 'social-fb': 'fb', 'social-inst': 'inst', 'social-vk': 'vk' };
+        Object.keys(map).forEach(cls => {
+            const el = document.querySelector(`.${cls}`);
+            if (el && SOCIAL_LINKS[map[cls]]) el.href = SOCIAL_LINKS[map[cls]];
+        });
+    }
+
     // --- Helpers ---
     function linkify(text) {
         return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:#e53935; text-decoration:underline;">$1</a>');
@@ -577,6 +628,7 @@
 
     // Запуск
     document.addEventListener('DOMContentLoaded', () => {
+        initSocialLinks();
         initApp();
         if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
     });
