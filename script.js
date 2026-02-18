@@ -15,8 +15,8 @@
 
     // Ссылки на соцсети (замените на свои)
     const SOCIAL_LINKS = {
-        tg: 'https://t.me/your_channel',
-        fb: 'https://facebook.com/your_page',
+        tg: 'https://t.me/lifetothefullest7',
+        fb: 'https://www.facebook.com/profile.php?id=61587677205100',
         inst: 'https://instagram.com/your_profile',
         vk: 'https://vk.com/your_group'
     };
