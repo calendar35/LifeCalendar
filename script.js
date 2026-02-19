@@ -17,8 +17,8 @@
     const SOCIAL_LINKS = {
         tg: 'https://t.me/your_channel',
         fb: 'https://facebook.com/your_page',
-        inst: 'https://instagram.com/your_profile',
-        vk: 'https://vk.com/your_group'
+        inst: 'https://www.instagram.com/knyazev_sergey8?igsh=bGhkbDcyOGkwajlr',
+        vk: 'https://vk.ru/lifetothefullest7'
     };
 
     // --- ГЛАВНАЯ ФУНКЦИЯ ВРЕМЕНИ (MSK UTC+3) ---
