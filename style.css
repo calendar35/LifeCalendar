@@ -652,10 +652,9 @@ body {
     gap: 10px;
 }
 
-.tg-link-btn {
+.tg-link-btn,
+.social-post-link {
     text-decoration: none;
-    background: #f0f9ff;
-    color: #0088cc;
     padding: 15px;
     border-radius: 12px;
     font-size: 15px;
@@ -666,6 +665,48 @@ body {
     gap: 10px;
     border: 1px solid #b3e5fc;
     transition: all 0.2s;
+}
+.social-post-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+.social-post-link-telegram {
+    background: #f0f9ff;
+    color: #0088cc;
+    border-color: #b3e5fc;
+}
+.social-post-link-telegram:hover {
+    background: #0088cc;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 136, 204, 0.2);
+}
+.social-post-link-facebook {
+    background: #e8f0fe;
+    color: #1976d2;
+    border-color: #bbdefb;
+}
+.social-post-link-facebook:hover {
+    background: #1976d2;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(25, 118, 210, 0.2);
+}
+.social-post-link-vk {
+    background: #e3f2fd;
+    color: #0277bd;
+    border-color: #90caf9;
+}
+.social-post-link-vk:hover {
+    background: #0277bd;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(2, 119, 189, 0.2);
+}
+.tg-link-btn {
+    background: #f0f9ff;
+    color: #0088cc;
 }
 .tg-link-btn:hover {
     background: #0088cc;

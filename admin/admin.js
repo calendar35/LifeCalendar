@@ -274,9 +274,16 @@ async function openAdminDayPopup(date) {
                 <label class="admin-input-label">Заголовок дня (в шапке)</label>
                 <input class="admin-input" type="text" id="dayTitle" placeholder="Пример: День 1. Начало">
                 
-                <label class="admin-input-label">Ссылки на Telegram</label>
+                <label class="admin-input-label">Ссылки на посты</label>
                 <div id="tgLinksContainer"></div>
-                <button class="btn btn-secondary" onclick="addTgLinkField()" style="font-size:12px;">+ Ссылка</button>
+                <div class="add-link-wrapper">
+                    <button class="btn btn-secondary" id="addLinkBtn" style="font-size:12px;">+ Добавить ссылку</button>
+                    <div id="socialLinkSelector" class="social-link-selector" style="display:none;">
+                        <button type="button" class="social-select-option" data-type="telegram">Telegram</button>
+                        <button type="button" class="social-select-option" data-type="facebook">Facebook</button>
+                        <button type="button" class="social-select-option" data-type="vk">ВКонтакте</button>
+                    </div>
+                </div>
                 
                 <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
                 
@@ -296,6 +303,31 @@ async function openAdminDayPopup(date) {
     
     document.getElementById('addBlockBtn').onclick = (e) => showBlockSelector(e.target);
 
+    // Кнопка "Добавить ссылку" — показывает выбор соцсети (Telegram / Facebook / VK)
+    const addLinkBtn = document.getElementById('addLinkBtn');
+    const addLinkWrapper = document.querySelector('.add-link-wrapper');
+    const selector = document.getElementById('socialLinkSelector');
+    addLinkBtn.onclick = (e) => {
+        e.stopPropagation();
+        const isVisible = selector.style.display === 'block';
+        selector.style.display = isVisible ? 'none' : 'block';
+        if (!isVisible) {
+            const closeSelector = (e2) => {
+                if (!addLinkWrapper.contains(e2.target)) {
+                    selector.style.display = 'none';
+                    document.removeEventListener('click', closeSelector);
+                }
+            };
+            setTimeout(() => document.addEventListener('click', closeSelector), 0);
+        }
+    };
+    selector.querySelectorAll('.social-select-option').forEach(btn => {
+        btn.onclick = () => {
+            addSocialLinkField(btn.dataset.type);
+            selector.style.display = 'none';
+        };
+    });
+
     // Загрузка данных
     const { data } = await supabaseClient.from('calendar_days').select('*').eq('date', dateStr).single();
     document.getElementById('popupLoading').style.display = 'none';
@@ -303,11 +335,9 @@ async function openAdminDayPopup(date) {
     
     if (data) {
         document.getElementById('dayTitle').value = data.title || '';
-        (data.tg_links || []).forEach(l => addTgLinkField(l));
-        if(!data.tg_links || !data.tg_links.length) addTgLinkField();
+        const links = normalizeSocialLinks(data.social_links || data.tg_links);
+        links.forEach(item => addSocialLinkField(item.type, item.url));
         (data.blocks || []).forEach(b => renderBlockItem(b.type, b));
-    } else {
-        addTgLinkField();
     }
 }
 
@@ -410,7 +440,9 @@ window.saveDayContent = async function() {
     try {
         const dateStr = formatDateISO(currentOpenDate);
         const title = document.getElementById('dayTitle').value;
-        const tgLinks = Array.from(document.querySelectorAll('.tg-link-input')).map(i=>i.value).filter(v=>v);
+        const tgLinks = Array.from(document.querySelectorAll('.social-link-input'))
+            .map(i => ({ type: i.dataset.type, url: i.value.trim() }))
+            .filter(v => v.url);
         
         const blocksData = [];
         const blockEls = document.querySelectorAll('#popupBlocksList .admin-block');
@@ -446,7 +478,7 @@ window.saveDayContent = async function() {
         }
 
         const { error } = await supabaseClient.from('calendar_days').upsert({
-            date: dateStr, title, tg_links: tgLinks, blocks: blocksData
+            date: dateStr, title, social_links: tgLinks, blocks: blocksData
         }, { onConflict: 'date' });
 
         if (error) throw error;
@@ -463,10 +495,29 @@ window.saveDayContent = async function() {
 }
 
 // Helpers
-function addTgLinkField(val='') {
+const SOCIAL_LABELS = { telegram: 'Telegram', facebook: 'Facebook', vk: 'ВКонтакте' };
+
+function normalizeSocialLinks(raw) {
+    if (!raw || !Array.isArray(raw)) return [];
+    return raw.map(item => {
+        if (typeof item === 'string') return { type: 'telegram', url: item };
+        return { type: item.type || 'telegram', url: item.url || '' };
+    }).filter(item => item.url && item.url.trim());
+}
+
+function addSocialLinkField(type, url = '') {
     const c = document.getElementById('tgLinksContainer');
-    const d = document.createElement('div'); d.style.display='flex'; d.style.marginBottom='5px';
-    d.innerHTML = `<input class="admin-input tg-link-input" value="${val}" style="margin:0"><button onclick="this.parentElement.remove()" style="margin-left:5px; border:1px solid #ddd; background:#fff; cursor:pointer;">×</button>`;
+    const d = document.createElement('div');
+    d.className = 'social-link-row';
+    d.style.display = 'flex';
+    d.style.alignItems = 'center';
+    d.style.gap = '8px';
+    d.style.marginBottom = '8px';
+    d.innerHTML = `
+        <span class="social-link-badge social-link-badge-${type}">${SOCIAL_LABELS[type] || type}</span>
+        <input class="admin-input social-link-input" data-type="${type}" value="${(url || '').replace(/"/g, '&quot;')}" placeholder="Ссылка на пост..." style="flex:1; margin:0;">
+        <button type="button" class="social-link-remove" onclick="this.closest('.social-link-row').remove()">×</button>
+    `;
     c.appendChild(d);
 }
 function previewImage(input) {

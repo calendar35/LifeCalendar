@@ -604,3 +604,75 @@ textarea.admin-input {
 .day-cell.disabled-day.has-content::after {
     display: none;
 }
+
+/* =========================================
+   14. ССЫЛКИ НА ПОСТЫ (ВЫБОР СОЦСЕТИ)
+   ========================================= */
+.add-link-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+.social-link-selector {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 6px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    border: 1px solid #eee;
+    padding: 6px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 180px;
+}
+.social-select-option {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #444;
+}
+.social-select-option:hover {
+    background: #fff1f1;
+    color: #b71c1c;
+}
+.social-link-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.social-link-badge-telegram { background: #e3f2fd; color: #0277bd; }
+.social-link-badge-facebook { background: #e8f0fe; color: #1976d2; }
+.social-link-badge-vk { background: #e3f2fd; color: #0277bd; }
+.social-link-remove {
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: #999;
+    flex-shrink: 0;
+}
+.social-link-remove:hover {
+    background: #ffebee;
+    color: #e53935;
+    border-color: #ffcdd2;
+}

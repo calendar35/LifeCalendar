@@ -363,23 +363,26 @@
             });
         }
 
-        // Ссылки
+        // Ссылки на посты (с иконками соцсетей)
         tgContainer.innerHTML = '';
-        if (data.tg_links && Array.isArray(data.tg_links) && data.tg_links.length > 0) {
-            const validLinks = data.tg_links.filter(l => l && l.trim() !== '');
-            if (validLinks.length > 0) {
-                const linksWrapper = document.createElement('div');
-                linksWrapper.className = 'popup-tg-links-area';
-                validLinks.forEach((link, i) => {
-                    const a = document.createElement('a');
-                    a.className = 'tg-link-btn';
-                    a.href = link;
-                    a.target = '_blank';
-                    a.innerHTML = `<span style="font-size:18px;">✈️</span> Обсудить в Telegram #${i + 1}`;
-                    linksWrapper.appendChild(a);
-                });
-                tgContainer.appendChild(linksWrapper);
-            }
+        const links = normalizeSocialLinksForDisplay(data.social_links || data.tg_links);
+        if (links.length > 0) {
+            const linksWrapper = document.createElement('div');
+            linksWrapper.className = 'popup-tg-links-area';
+            const SOCIAL_ICONS = { telegram: 'icons/tg.svg', facebook: 'icons/fb.svg', vk: 'icons/vk.svg' };
+            const SOCIAL_LABELS = { telegram: 'Telegram', facebook: 'Facebook', vk: 'ВКонтакте' };
+            links.forEach((item, i) => {
+                const a = document.createElement('a');
+                a.className = `social-post-link social-post-link-${item.type}`;
+                a.href = item.url;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                const iconPath = SOCIAL_ICONS[item.type] || 'icons/tg.svg';
+                const label = SOCIAL_LABELS[item.type] || item.type;
+                a.innerHTML = `<img src="${iconPath}" alt="${label}" class="social-post-icon"> Обсудить в ${label}`;
+                linksWrapper.appendChild(a);
+            });
+            tgContainer.appendChild(linksWrapper);
         }
 
         // Поле "Примечание" (всегда в конце, кешируется)
@@ -586,6 +589,13 @@
     }
 
     // --- Helpers ---
+    function normalizeSocialLinksForDisplay(raw) {
+        if (!raw || !Array.isArray(raw)) return [];
+        return raw.map(item => {
+            if (typeof item === 'string') return { type: 'telegram', url: item };
+            return { type: item.type || 'telegram', url: (item.url || '').trim() };
+        }).filter(item => item.url);
+    }
     function linkify(text) {
         return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" style="color:#e53935; text-decoration:underline;">$1</a>');
     }
