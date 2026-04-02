@@ -594,7 +594,8 @@
         if (!raw || !Array.isArray(raw)) return [];
         return raw.map(item => {
             if (typeof item === 'string') return { type: 'telegram', url: item };
-            return { type: item.type || 'telegram', url: (item.url || '').trim() };
+            const typeKey = (item.type || 'telegram').toString().trim().toLowerCase();
+            return { type: typeKey, url: (item.url || '').trim() };
         }).filter(item => item.url);
     }
     function linkify(text) {
