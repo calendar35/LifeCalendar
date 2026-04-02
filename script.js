@@ -370,8 +370,8 @@
         if (links.length > 0) {
             const linksWrapper = document.createElement('div');
             linksWrapper.className = 'popup-tg-links-area';
-            const SOCIAL_ICONS = { telegram: 'icons/tg.svg', facebook: 'icons/fb.svg', vk: 'icons/vk.svg' };
-            const SOCIAL_LABELS = { telegram: 'Telegram', facebook: 'Facebook', vk: 'ВКонтакте' };
+            const SOCIAL_ICONS = { telegram: 'icons/tg.svg', facebook: 'icons/fb.svg', vk: 'icons/vk.svg', max: 'icons/max.svg' };
+            const SOCIAL_LABELS = { telegram: 'Telegram', facebook: 'Facebook', vk: 'ВКонтакте', max: 'Max' };
             links.forEach((item, i) => {
                 const a = document.createElement('a');
                 a.className = `social-post-link social-post-link-${item.type}`;
@@ -582,7 +582,7 @@
     }
 
     function initSocialLinks() {
-        const map = { 'social-tg': 'tg', 'social-fb': 'fb', 'social-inst': 'inst', 'social-vk': 'vk' };
+        const map = { 'social-tg': 'tg', 'social-fb': 'fb', 'social-inst': 'inst', 'social-vk': 'vk', 'social-max': 'max' };
         Object.keys(map).forEach(cls => {
             const el = document.querySelector(`.${cls}`);
             if (el && SOCIAL_LINKS[map[cls]]) el.href = SOCIAL_LINKS[map[cls]];
