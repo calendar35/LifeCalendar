@@ -496,7 +496,7 @@ window.saveDayContent = async function() {
 }
 
 // Helpers
-const SOCIAL_LABELS = { telegram: 'Telegram', facebook: 'Facebook', vk: 'ВКонтакте' };
+const SOCIAL_LABELS = { telegram: 'Telegram', facebook: 'Facebook', vk: 'ВКонтакте', max: 'Max' };
 
 function normalizeSocialLinks(raw) {
     if (!raw || !Array.isArray(raw)) return [];
