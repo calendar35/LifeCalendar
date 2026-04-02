@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calendar-user-v1.4';
+const CACHE_NAME = 'calendar-user-v1.5';
 const ASSETS = [
   './',
   './index.html',
@@ -11,7 +11,8 @@ const ASSETS = [
   './icons/tg.svg',
   './icons/fb.svg',
   './icons/ig.svg',
-  './icons/vk.svg'
+  './icons/vk.svg',
+  './icons/max.svg'
 ];
 
 // Установка: кэшируем статику
