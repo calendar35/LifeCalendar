@@ -100,6 +100,9 @@ body {
 .social-vk { background: #fff; }
 .social-vk:hover { background: #e3f2fd; }
 
+.social-max { background: #fff; }
+.social-max:hover { background: #f1f3ff; }
+
 /* =========================================
    3. ГЛОБАЛЬНАЯ СТАТИСТИКА (КАРТОЧКИ)
    ========================================= */
