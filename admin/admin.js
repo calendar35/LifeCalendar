@@ -282,6 +282,7 @@ async function openAdminDayPopup(date) {
                         <button type="button" class="social-select-option" data-type="telegram">Telegram</button>
                         <button type="button" class="social-select-option" data-type="facebook">Facebook</button>
                         <button type="button" class="social-select-option" data-type="vk">ВКонтакте</button>
+                        <button type="button" class="social-select-option" data-type="max">Max</button>
                     </div>
                 </div>
                 
