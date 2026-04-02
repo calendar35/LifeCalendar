@@ -657,6 +657,7 @@ textarea.admin-input {
 .social-link-badge-telegram { background: #e3f2fd; color: #0277bd; }
 .social-link-badge-facebook { background: #e8f0fe; color: #1976d2; }
 .social-link-badge-vk { background: #e3f2fd; color: #0277bd; }
+.social-link-badge-max { background: #f1f3ff; color: #3f51b5; }
 .social-link-remove {
     width: 32px;
     height: 32px;
