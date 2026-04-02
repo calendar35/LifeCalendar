@@ -502,11 +502,13 @@ function normalizeSocialLinks(raw) {
     if (!raw || !Array.isArray(raw)) return [];
     return raw.map(item => {
         if (typeof item === 'string') return { type: 'telegram', url: item };
-        return { type: item.type || 'telegram', url: item.url || '' };
+        const typeKey = (item.type || 'telegram').toString().trim().toLowerCase();
+        return { type: typeKey, url: item.url || '' };
     }).filter(item => item.url && item.url.trim());
 }
 
 function addSocialLinkField(type, url = '') {
+    const typeKey = (type || '').toString().trim().toLowerCase();
     const c = document.getElementById('tgLinksContainer');
     const d = document.createElement('div');
     d.className = 'social-link-row';
@@ -515,8 +517,8 @@ function addSocialLinkField(type, url = '') {
     d.style.gap = '8px';
     d.style.marginBottom = '8px';
     d.innerHTML = `
-        <span class="social-link-badge social-link-badge-${type}">${SOCIAL_LABELS[type] || type}</span>
-        <input class="admin-input social-link-input" data-type="${type}" value="${(url || '').replace(/"/g, '&quot;')}" placeholder="Ссылка на пост..." style="flex:1; margin:0;">
+        <span class="social-link-badge social-link-badge-${typeKey}">${SOCIAL_LABELS[typeKey] || typeKey}</span>
+        <input class="admin-input social-link-input" data-type="${typeKey}" value="${(url || '').replace(/"/g, '&quot;')}" placeholder="Ссылка на пост..." style="flex:1; margin:0;">
         <button type="button" class="social-link-remove" onclick="this.closest('.social-link-row').remove()">×</button>
     `;
     c.appendChild(d);
