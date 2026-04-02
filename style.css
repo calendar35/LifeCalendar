@@ -707,6 +707,17 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(2, 119, 189, 0.2);
 }
+.social-post-link-max {
+    background: #f1f3ff;
+    color: #3f51b5;
+    border-color: #c5cae9;
+}
+.social-post-link-max:hover {
+    background: #3f51b5;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(63, 81, 181, 0.2);
+}
 .tg-link-btn {
     background: #f0f9ff;
     color: #0088cc;
