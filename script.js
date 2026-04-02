@@ -18,7 +18,8 @@
         tg: 'https://t.me/lifetothefullest7',
         fb: 'https://www.facebook.com/profile.php?id=61587677205100',
         inst: 'https://www.instagram.com/knyazev_sergey8?igsh=bGhkbDcyOGkwajlr',
-        vk: 'https://vk.ru/lifetothefullest7'
+        vk: 'https://vk.ru/lifetothefullest7',
+        max: 'https://max.ru/join/_9QufG9pokG0iO8UI19jlAR36jDuaH7JLXFLvb8Mgfc'
     };
 
     // --- ГЛАВНАЯ ФУНКЦИЯ ВРЕМЕНИ (MSK UTC+3) ---
